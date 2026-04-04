@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "Bash(find:*)",
+      "Bash(grep:*)",
+      "Bash(git add:*)",
+      "Bash(git push:*)",
+      "Bash(git commit:*)",
+      "Bash(git branch:*)",
+      "Bash(rm:*)",
+      "Bash(node:*)",
+      "Bash(wc:*)",
+      "Bash(open:*)",
+      "Skill(advise)",
+      "Skill(updatenow)"
+    ]
+  }
+}

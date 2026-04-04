@@ -1,0 +1,56 @@
+# {{WORKSPACE_NAME}} — Architecture
+
+**Version:** 0.1 | **Updated:** {{DATE}}
+
+> **LLM Instructions:** This is a workspace-level index across multiple independent projects.
+> - Each project subfolder is independent — own git repo, own stack, own conventions
+> - Read top-to-bottom for workspace context, then dive into project-specific docs
+> - Tables over prose, grep-friendly headings, no filler text
+> - Target: under 300 lines
+
+---
+
+## Quick Reference
+
+### What Is This?
+
+Multi-project workspace for {{USER_NAME}}'s projects. Each project manages its own git repo and deployment.
+
+### Workspace Structure
+
+```
+ai-projects/
+├── CLAUDE.md               # Workspace rules + project index
+├── docs/
+│   ├── arch.md             # This file
+│   ├── features/           # Workspace-level feature docs
+│   └── plans/              # Research & decision docs
+├── .claude/
+│   └── skills/             # Workspace skills (/startnow, /updatenow, etc.)
+└── [projects]/             # Independent project folders
+```
+
+---
+
+## Project Index
+
+| # | Project | Git Repo | Status | Has Skills | Key Tech |
+|---|---------|----------|--------|------------|----------|
+| *(projects will be added here)* | | | | | |
+
+---
+
+## Key Patterns
+
+1. **Independent git repos** — each project manages its own git history. No monorepo.
+2. **Claude skills per project** — projects can have their own `.claude/` configs that override workspace-level defaults
+3. **Docs-driven workflow** — use `/advise` before decisions, `/updatenow` after changes
+4. **New projects via `/newproject`** — clones claude-project-kit templates, walks through full bootstrap
+
+---
+
+## Version History
+
+| Ver | Date | Changes |
+|-----|------|---------|
+| 0.1 | {{DATE}} | **Initial scaffold.** Workspace created from claude-workspace-kit. |
