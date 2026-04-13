@@ -1,7 +1,7 @@
 ---
 name: audit
-description: "[Workspace] Audit any project for security, cost, performance, code quality, and infra reuse."
-argument-hint: [security | cost | performance | quality | infra | all]
+description: "[Workspace] Audit any project for security, cost, performance, code quality, infra reuse, and staleness."
+argument-hint: [security | cost | performance | quality | infra | staleness | all]
 disable-model-invocation: false
 allowed-tools: Read, Bash, Glob, Grep, Write, WebSearch
 ---
@@ -35,6 +35,7 @@ This is a multi-project workspace. When auditing:
 | **Code Quality** | Dead code, duplicated logic, missing error handling, inconsistent patterns, no tests | BLUE |
 | **Infra Reuse** | Duplicate utilities, reinvented patterns, unused shared components, refactoring wins | BLUE |
 | **Architecture** | Mismatched patterns, scaling bottlenecks, tight coupling, missing separation of concerns | ORANGE |
+| **Staleness** | Outdated docs, orphan pages, stale memory, dead references, drift from code reality | GRAY |
 
 ---
 
@@ -110,6 +111,28 @@ This is a multi-project workspace. When auditing:
 | Scaling bottlenecks | Identify single points of failure, synchronous chains, missing queues |
 | Pattern alignment | Compare actual code against arch.md Key Patterns — find drift |
 
+### Step 8: Staleness Audit
+
+| Check | How |
+|-------|-----|
+| Dead doc references | Grep arch.md and feature docs for file paths that no longer exist on disk (`Glob` to verify) |
+| Outdated feature docs | Compare `docs/features/*.md` last-modified dates against `git log` for referenced source files. Flag if doc is 30+ days behind code changes. |
+| Stale memory files | Check memory file dates. Flag any older than 60 days. Read and verify content still applies. |
+| Stale research | Check `docs/plans/*.md` dates. Flag research older than 90 days that's still referenced as current guidance. |
+| Project table drift | Compare CLAUDE.md project table entries against actual folders on disk. Flag missing/extra projects. |
+| Orphan docs | Find docs in `docs/features/` and `docs/plans/` not linked from arch.md or any other doc. |
+| Source staleness | If `docs/sources.md` exists, check "Still Current?" column. Flag sources marked current but ingested 90+ days ago. |
+| Version history gaps | Check if arch.md Version History has entries for recent git commits. Flag gaps > 2 weeks. |
+
+**Staleness scoring (per item):**
+
+| Age | Score | Action |
+|-----|-------|--------|
+| < 30 days | Fresh | None |
+| 30-60 days | Aging | Review next session |
+| 60-90 days | Stale | Update or remove |
+| 90+ days | Critical | Likely outdated — verify or archive |
+
 ---
 
 ## Report Format
@@ -128,6 +151,7 @@ This is a multi-project workspace. When auditing:
 | Code Quality | A-F | [N] items | [N] |
 | Infra Reuse | A-F | [N] items | [N] |
 | Architecture | A-F | [N] items | [N] |
+| Staleness | A-F | [N] items | [N] |
 ```
 
 ### Findings Table (sorted by severity)
@@ -142,6 +166,7 @@ This is a multi-project workspace. When auditing:
 - **ORANGE** — Fix soon. Architecture issue that compounds over time.
 - **YELLOW** — Plan to fix. Costs money or hurts performance.
 - **BLUE** — Nice to have. Cleaner code, better patterns.
+- **GRAY** — Staleness. Outdated docs or memory that may mislead future sessions.
 
 ### Top 3 Quick Wins + Top 3 Strategic Improvements
 

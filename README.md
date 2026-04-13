@@ -74,8 +74,9 @@ ai-projects/
 │       ├── startnow/            ← Load context at session start
 │       ├── updatenow/           ← Update docs after changes
 │       ├── advise/              ← Research + recommend
+│       ├── ingest/              ← Process knowledge sources
 │       ├── l3/                  ← Debug/investigate
-│       ├── audit/               ← Health check
+│       ├── audit/               ← Health check + staleness detection
 │       ├── localcompact/        ← Keep docs lean
 │       └── newproject/          ← Create new projects
 └── [your-projects]/             ← Each with own git repo + skills
@@ -134,8 +135,9 @@ New to this? Follow [TUTORIAL.md](TUTORIAL.md) — a guided 30-minute walkthroug
 | `/startnow` | Load workspace context — tree view + project status |
 | `/updatenow` | Update workspace docs after changes |
 | `/advise [topic]` | Research a domain, present options with costs/risks |
+| `/ingest [source]` | Process articles, research, or docs into structured knowledge with cross-references |
 | `/l3 [error]` | Systematic debugging across projects |
-| `/audit [focus]` | Security, cost, performance, quality health check |
+| `/audit [focus]` | Security, cost, performance, quality, staleness health check |
 | `/localcompact` | Keep arch.md under 300 lines |
 | `/newproject [name]` | Scaffold new project from idea or PRD |
 
@@ -152,6 +154,7 @@ Extracted from real project experience. Find them in `docs/meta/`:
 | [Anti-Patterns](docs/meta/anti-patterns.md) | 12 common mistakes and what to do instead |
 | [Memory Guide](docs/meta/memory-guide.md) | What to store in auto-memory, what not to |
 | [Domain Skill Design](docs/meta/domain-skill-design.md) | Advanced patterns: routing, chaining, two-tier models |
+| [Workflow Evolution](docs/meta/workflow-evolution.md) | How your daily routine changes with /ingest and staleness detection |
 
 ---
 

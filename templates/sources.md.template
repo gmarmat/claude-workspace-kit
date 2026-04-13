@@ -1,0 +1,14 @@
+# Knowledge Sources
+
+Ingested sources tracked for cross-reference and staleness detection. Updated by `/ingest`, checked by `/audit staleness`.
+
+| # | Source | Date Ingested | Topic | Summary Page | Still Current? |
+|---|--------|--------------|-------|-------------|---------------|
+| — | No sources ingested yet | — | — | — | — |
+
+## How This Works
+
+- `/ingest [source]` adds rows to this table
+- `/audit staleness` checks "Still Current?" and flags sources older than 90 days
+- Each source links to a detailed summary in `docs/plans/YYYY-MM-DD-ingest-{topic}.md`
+- Cross-references to project docs are tracked in each summary page
