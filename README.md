@@ -2,6 +2,62 @@
 
 A workspace scaffolding tool for [Claude Code](https://claude.ai/claude-code). Sets up a multi-project `ai-projects/` folder with built-in skills for context management, documentation, research, debugging, and project creation.
 
+Built from patterns extracted across 10+ real projects — web apps, construction planning, career prep, AI content studios, and more. Not theoretical. Every pattern earned its place by surviving real production use.
+
+---
+
+## Philosophy: You Are the Architect
+
+This kit is built on one principle: **you make the decisions, Claude handles the execution.**
+
+This maps directly to what Andrej Karpathy calls [Agentic Engineering](https://addyosmani.com/blog/agentic-engineering/) — the structured successor to "vibe coding":
+
+| Agentic Engineering Principle | How This Kit Implements It |
+|-------------------------------|---------------------------|
+| **Plan** before prompting | PRD-first workflow, `/advise` before every architecture decision |
+| **Direct** with precision | Communication guide + doc references in every instruction |
+| **Review** rigorously | Build loop — test locally, review each sub-task |
+| **Test** systematically | `/audit` skill — security, cost, performance, quality |
+| **Own** the architecture | `/updatenow` keeps docs current, you stay in control |
+
+> **The difference between vibe coding and building real products is a system.** This kit is the workspace layer of that system.
+
+---
+
+## Why a Workspace Kit?
+
+Most Claude Code starter kits handle a single project. But real work involves **multiple projects** running in parallel — each with its own git repo, tech stack, and conventions.
+
+This kit solves the workspace problem:
+
+| Challenge | How This Kit Solves It |
+|-----------|----------------------|
+| **Context switching** | `/startnow` loads ALL project states in one view |
+| **Cross-project patterns** | Workspace CLAUDE.md inherits rules to all projects |
+| **Documentation drift** | `/updatenow` syncs workspace index + project docs |
+| **New project overhead** | `/newproject` scaffolds from templates in minutes |
+| **Token waste** | arch.md stays under 300 lines at both levels |
+
+---
+
+## Two-Kit Architecture
+
+This workspace kit works alongside [claude-project-kit](https://github.com/gmarmat/claude-project-kit):
+
+```
+Workspace Kit (this repo)              Project Kit (companion)
+├── Sets up ai-projects/ folder        ├── Bootstraps individual projects
+├── 7 workspace management skills      ├── 6 project development skills
+├── Cross-project context              ├── Single-project focus
+├── /newproject clones project kit     ├── StartHere.md guided bootstrap
+└── Manages the forest                 └── Manages the trees
+```
+
+**Use the workspace kit** when you're managing multiple projects or tasks in one place.
+**Use the project kit** when you're building a single standalone app.
+
+---
+
 ## What This Creates
 
 ```
@@ -10,7 +66,8 @@ ai-projects/
 ├── docs/
 │   ├── arch.md                  ← Architecture overview (<300 lines)
 │   ├── features/                ← Workspace-level feature docs
-│   └── plans/                   ← Research & decision docs
+│   ├── plans/                   ← Research & decision docs
+│   └── meta/                    ← Guides: cheat sheet, anti-patterns, etc.
 ├── .claude/
 │   ├── settings.local.json      ← Tool permissions
 │   └── skills/                  ← 7 workspace management skills
@@ -62,6 +119,14 @@ claude
 
 This clones [claude-project-kit](https://github.com/gmarmat/claude-project-kit) and walks you through a full project bootstrap (PRD, architecture, skills).
 
+---
+
+## Tutorial: Set Up Your Workspace
+
+New to this? Follow [TUTORIAL.md](TUTORIAL.md) — a guided 30-minute walkthrough that sets up a workspace with two mini-projects and teaches you the workspace management workflow.
+
+---
+
 ## Skills Reference
 
 | Skill | Purpose |
@@ -73,6 +138,22 @@ This clones [claude-project-kit](https://github.com/gmarmat/claude-project-kit) 
 | `/audit [focus]` | Security, cost, performance, quality health check |
 | `/localcompact` | Keep arch.md under 300 lines |
 | `/newproject [name]` | Scaffold new project from idea or PRD |
+
+---
+
+## Learnings & Guides
+
+Extracted from real project experience. Find them in `docs/meta/`:
+
+| Guide | What It Covers |
+|-------|---------------|
+| [Cheat Sheet](docs/meta/cheat-sheet.md) | 1-page quick reference for workspaces |
+| [Communication Guide](docs/meta/communication-guide.md) | How to give Claude good instructions |
+| [Anti-Patterns](docs/meta/anti-patterns.md) | 12 common mistakes and what to do instead |
+| [Memory Guide](docs/meta/memory-guide.md) | What to store in auto-memory, what not to |
+| [Domain Skill Design](docs/meta/domain-skill-design.md) | Advanced patterns: routing, chaining, two-tier models |
+
+---
 
 ## How It Works
 
@@ -91,6 +172,24 @@ Workspace Skills (this kit)          Project Skills (project kit)
 └── /newproject
 ```
 
+---
+
+## Works for Non-Code Projects Too
+
+This workspace pattern works for any multi-project workflow — not just code:
+
+| Project Type | What Skills Help With |
+|-------------|----------------------|
+| Construction planning | Contractor comparison, permit tracking, budget management |
+| Career prep | Resume tailoring, interview prep, company research |
+| Content creation | Story writing, content pipelines, multi-language publishing |
+| Course development | Class structure, lesson plans, teaching materials |
+| Home infrastructure | Device audits, network troubleshooting, documentation |
+
+The same documentation system, build loop, and research workflow apply regardless of domain.
+
+---
+
 ## Companion Repo
 
 - **[claude-project-kit](https://github.com/gmarmat/claude-project-kit)** — Public template for bootstrapping individual projects. Used by `/newproject`.
@@ -98,3 +197,7 @@ Workspace Skills (this kit)          Project Skills (project kit)
 ## License
 
 MIT
+
+---
+
+**Created by [gmarmat](https://github.com/gmarmat)**
