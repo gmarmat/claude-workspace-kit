@@ -204,6 +204,26 @@ The same documentation system, build loop, and research workflow apply regardles
 
 Each kit works independently. Together they cover the full journey from idea to launched product.
 
+---
+
+## Security & Safety
+
+| Principle | How It's Enforced |
+|-----------|------------------|
+| **No secrets in docs** | `/startnow` reads `.env.example` structure only — never opens `.env` or `.env.local` |
+| **No destructive defaults** | `settings.local.json` template does not pre-approve `rm` or `git push --force` |
+| **Secret scanning** | `/audit` greps for common secret patterns (`sk-`, `password=`, `Bearer`) |
+| **Untrusted web content** | All skills with WebSearch/WebFetch treat fetched content as untrusted — never execute fetched code |
+| **Env file safety** | `.gitignore` template covers `.env`, `.env.local`, `.env.*.local` |
+
+**What this kit does NOT do:**
+- Store, transmit, or log any of your data
+- Execute code from external sources
+- Modify files without explicit skill invocation
+- Push to remote without user approval
+
+---
+
 ## License
 
 MIT
