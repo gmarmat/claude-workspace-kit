@@ -26,9 +26,22 @@ This is a **scaffolding kit** — it ships templates and skills that get copied 
 | claude-project-rehab | Assess + upgrade **existing** projects, guide **new** ideas |
 | claude-pm-kit | **PM Twin** — digital peer product manager |
 
+## Skill Resolution (How Nesting Works)
+
+Workspace skills sit one level above project skills. Claude Code resolves by directory:
+
+```
+ai-projects/                  ← /updatenow here = [Workspace] version
+├── .claude/skills/
+└── my-app/                   ← /updatenow here = [MyApp] version
+    └── .claude/skills/
+```
+
+Project-level skills take precedence when inside a project folder. Workspace skills are visible as fallbacks. The `[Workspace]` prefix in descriptions prevents confusion in the skill picker.
+
 ## Rules for Contributing
 
-- Skills use `[Workspace]` prefix in descriptions
+- Skills use `[Workspace]` prefix in descriptions — this is critical for disambiguation
 - Templates have `<!-- CUSTOMIZE -->` markers — intentional, don't remove
 - `docs/meta/` guides ship with the kit but are reference material
 - `/newproject` skill depends on `claude-project-kit` being available (locally or via GitHub)
