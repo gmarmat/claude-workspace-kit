@@ -123,54 +123,7 @@ Write a project CLAUDE.md with:
 
 #### 4d. docs/arch.md
 
-Seed a minimal arch.md following the structure from the kit updatenow template:
-
-```markdown
-# [Project Name] — Architecture
-**Version:** 0.1 | **Updated:** YYYY-MM-DD
-
-<!-- LLM: Read this file first. Token-optimized project index. -->
-
-## Quick Reference
-
-### What Is This?
-[1-paragraph summary from user's description]
-
-### Tech Stack
-| Component | Technology | Notes |
-|-----------|-----------|-------|
-| [filled from user's description or proposed stack] |
-
-### Project Structure
-[Will be filled as code is written]
-
-### Environment Variables
-[Will be filled as env vars are added]
-
-## Domain Concepts
-[Will be filled as domain is understood]
-
-## Data Model
-[Will be filled as schema is designed]
-
-## API Routes
-[Will be filled as routes are built]
-
-## Key Patterns
-[Will be filled as patterns emerge]
-
-## Feature Index
-| Feature | Doc | Status |
-|---------|-----|--------|
-| [none yet] | | |
-
-## Version History
-| Version | Date | Changes |
-|---------|------|---------|
-| 0.1 | YYYY-MM-DD | **Initial scaffold.** Project created. |
-```
-
-Keep it under 60 lines — it'll grow as the project develops.
+Read `kit/docs/arch.md.template` (from the project-kit) for the full structure. Create `docs/arch.md` by filling in Quick Reference (project name, tech stack from user's description) and seeding empty sections for Domain Concepts, Data Model, API Routes, Key Patterns, Feature Index, and Version History. Keep it under 60 lines — it grows as the project develops.
 
 #### 4e. Skills (from kit templates)
 
