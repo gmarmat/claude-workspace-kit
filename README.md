@@ -193,9 +193,16 @@ The same documentation system, build loop, and research workflow apply regardles
 
 ---
 
-## Companion Repo
+## Part of the Kit Ecosystem
 
-- **[claude-project-kit](https://github.com/gmarmat/claude-project-kit)** — Public template for bootstrapping individual projects. Used by `/newproject`.
+| Kit | Purpose |
+|-----|---------|
+| [claude-project-kit](https://github.com/gmarmat/claude-project-kit) | Bootstrap **new** projects |
+| **claude-workspace-kit** (this repo) | Manage **multi-project** workspaces |
+| [claude-project-rehab](https://github.com/gmarmat/claude-project-rehab) | Assess + upgrade **existing** projects, guide **new** ideas |
+| [claude-pm-kit](https://github.com/gmarmat/claude-pm-kit) | **PM Twin** — digital peer product manager, full product lifecycle |
+
+Each kit works independently. Together they cover the full journey from idea to launched product.
 
 ## License
 
