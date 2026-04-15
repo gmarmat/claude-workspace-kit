@@ -72,3 +72,15 @@ What are we working on today?
 - Do NOT read `.env` values — only note which env vars are configured
 - Keep the summary concise — the user wants to start working, not read a report
 - If a project has no architecture doc, note it and suggest creating one
+
+### If the User Picks a Specific Project
+
+When the user says they want to work on a specific project (e.g., "let's work on my-app"):
+
+1. **Read that project's CLAUDE.md** to load its rules and constraints
+2. **Read that project's docs/arch.md** to load its architecture context
+3. **Note which project-specific skills are available** in that project's `.claude/skills/`
+4. **Use that project's conventions** for the rest of the session — its skill prefixes, its patterns, its rules
+5. **Tell the user** what project-specific skills they have access to
+
+This ensures that even when launched from the workspace root, Claude works within the correct project context.
