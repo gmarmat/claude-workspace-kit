@@ -54,14 +54,11 @@ personal/
 ├── CLAUDE.md                    ← Workspace rules + project index
 ├── gmarmat/                     ← GitHub profile README
 ├── backyard/                    ← Spa build docs
-├── tara1/                       ← Tara1 umbrella
-│   ├── content/                 ←   Content staging (not git-tracked)
-│   │   ├── sleepy-banyan/       ←     Stories for kids video pipeline
-│   │   └── daily/               ←     Devotional content seeds
-│   ├── dharmalink/              ←   Main app (Next.js + Supabase + Railway)
-│   │   └── .claude/skills/      ←     10 skills incl. /pushcontent, /writestory
-│   └── research/                ←   Research docs
-├── jotrack-v2/                  ← PrepRight job tracker
+├── project-a/                   ← Example web app (Next.js + Supabase)
+│   ├── docs/                    ←   Architecture + feature docs
+│   └── .claude/skills/          ←   Project-specific skills
+├── project-b/                   ← Example mobile app
+│   └── docs/                    ←   Project docs
 └── kit/                         ← Claude Code bootstrap kit (read-only)
 ```
 
@@ -72,8 +69,8 @@ Build this tree dynamically from what you find on disk — don't hardcode it. Sh
 ```
 | Folder | Branch | Last Commit | Has Skills |
 |--------|--------|-------------|------------|
-| dharmalink | main | feat: /pushcontent skill (2h ago) | 10 skills |
-| jotrack-v2 | main | fix: auth redirect (3d ago) | 4 skills |
+| project-a | main | feat: new feature (2h ago) | 8 skills |
+| project-b | main | fix: auth redirect (3d ago) | 4 skills |
 ```
 
 Then:
