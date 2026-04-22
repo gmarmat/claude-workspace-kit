@@ -23,11 +23,21 @@ You help the user go from idea -> working project folder with all the standard s
 
 **Project templates come from the public [claude-project-kit](https://github.com/gmarmat/claude-project-kit) repo.**
 
-### How to Get Templates
+### How to Get Templates (auto-fetch pattern)
 
-1. Check if the kit repo exists locally (look for a `kit/` folder in the workspace or `/tmp/claude-project-kit/`)
-2. If not found, clone it: `git clone https://github.com/gmarmat/claude-project-kit.git /tmp/claude-project-kit`
-3. Read templates from the cloned repo
+Kits are cached under `~/.claude/kits/` so they persist across sessions and projects. This is the shared cache location — both `/newproject` (here) and pm-kit's `/pm` skill write to / read from the same place.
+
+1. **Detection order** — check in this order, stop at first hit:
+   - `../kit/` or `../claude-project-kit/` (sibling of this workspace)
+   - `~/.claude/kits/claude-project-kit/` (global cache)
+   - *(legacy fallback)* `/tmp/claude-project-kit/` — if found, migrate to `~/.claude/kits/`
+2. **If not found**, clone into the global cache (do **not** clone into `/tmp` — it gets wiped on reboot and breaks the cross-kit share):
+   ```bash
+   mkdir -p ~/.claude/kits
+   git clone --depth 1 https://github.com/gmarmat/claude-project-kit.git ~/.claude/kits/claude-project-kit
+   ```
+3. **Staleness check** — if the cached kit is > 30 days old (`git -C ~/.claude/kits/claude-project-kit log -1 --format=%cr`), suggest `git pull` to the user but never pull silently.
+4. Read templates from whichever copy you found.
 
 ### Template Mapping
 
@@ -160,6 +170,35 @@ For each skill, read the kit template, then create a customized version:
 
 - Add the new project to the workspace `CLAUDE.md` Projects table
 - Don't initialize git — the user decides when
+
+### Step 5.5: Offer Related Kits (optional)
+
+After the base scaffold is in place, offer to install pm-kit's PM Twin skills for projects that would benefit from a full product lifecycle (Discovery → Go/No-Go → PRD → Launch). Don't auto-install — ask first.
+
+```
+Want the PM Twin skills (/pm, /toolkit, /roadmap, /pitch, /metrics, /qa-feature, /provision, etc.)?
+These add a full product lifecycle wizard — discovery interview, market research, Go/No-Go gate, PRD generation, sprint planning. (y/n)
+```
+
+**On "y"** — apply the same auto-fetch pattern as project-kit:
+
+1. Detect `~/.claude/kits/claude-pm-kit/` → if missing, clone:
+   ```bash
+   git clone --depth 1 https://github.com/gmarmat/claude-pm-kit.git ~/.claude/kits/claude-pm-kit
+   ```
+2. Copy pm-kit's skills into the new project **without overwriting** existing skills:
+   ```bash
+   for skill in pm toolkit roadmap pitch metrics stakeholder-update userstudy qa-feature verify provision; do
+     if [ ! -d [name]/.claude/skills/$skill ] && [ -d ~/.claude/kits/claude-pm-kit/.claude/skills/$skill ]; then
+       cp -r ~/.claude/kits/claude-pm-kit/.claude/skills/$skill [name]/.claude/skills/
+     fi
+   done
+   ```
+3. Tell the user: "PM Twin skills installed. Run `/pm setup` inside the new project to kick off the lifecycle."
+
+**On "n"** — skip. User can add pm-kit skills later manually or re-run this step.
+
+**Private kits (workspace-kit, rehab)** — flag only, never auto-clone. Let the user handle their own auth.
 
 ### Step 6: Report
 

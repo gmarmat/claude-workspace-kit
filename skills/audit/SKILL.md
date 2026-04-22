@@ -172,11 +172,83 @@ This is a multi-project workspace. When auditing:
 
 ---
 
-## Save Report
+## Save Report (run-history pattern)
 
-Save the full report to: `docs/plans/YYYY-MM-DD-audit.md`
+Every audit run is preserved under `docs/plans/audits/` so users can see their project's health improve over time — analogous to rehab's run-history pattern. This turns `/audit` from a snapshot tool into a progress-tracking tool.
 
-If this is a focused audit, name it: `docs/plans/YYYY-MM-DD-audit-[dimension].md`
+### Layout
+
+```
+docs/plans/audits/
+├── YYYY-MM-DD-HHMM/              # one folder per audit run
+│   ├── audit.md                  # full markdown report (unchanged content)
+│   └── scores.json               # machine-readable per-dimension grades
+├── latest/                        # mirror of most recent run (symlink or copy)
+├── history.md                     # timeline of all runs with deltas
+└── *.md                           # (legacy flat-file audits, left in place)
+```
+
+### Write steps
+
+1. **Generate `run_id`:** `date +%Y-%m-%d-%H%M` via Bash.
+2. **Create the run folder:** `mkdir -p docs/plans/audits/[run_id]`.
+3. **Write the markdown report** to `docs/plans/audits/[run_id]/audit.md` (same content as before — header, scorecard, findings table, quick wins).
+4. **Emit `scores.json`** in the same folder:
+
+```json
+{
+  "run_id": "YYYY-MM-DD-HHMM",
+  "run_timestamp_iso": "ISO 8601 UTC",
+  "project_name": "[from workspace/project CLAUDE.md]",
+  "scope": "all | security | cost | performance | quality | infra | staleness",
+  "overall_grade": "B+",
+  "overall_score": 3.3,
+  "dimensions": {
+    "security":      { "grade": "B",  "score": 3.0, "findings_red": 0, "findings_orange": 1, "findings_yellow": 2, "findings_blue": 0 },
+    "cost":          { "grade": "A-", "score": 3.7, "findings_red": 0, "findings_orange": 0, "findings_yellow": 1, "findings_blue": 1 },
+    "performance":   { "grade": "B+", "score": 3.3, "findings_red": 0, "findings_orange": 0, "findings_yellow": 2, "findings_blue": 0 },
+    "code_quality":  { "grade": "B",  "score": 3.0, "findings_red": 0, "findings_orange": 0, "findings_yellow": 1, "findings_blue": 3 },
+    "infra_reuse":   { "grade": "A",  "score": 4.0, "findings_red": 0, "findings_orange": 0, "findings_yellow": 0, "findings_blue": 2 },
+    "architecture":  { "grade": "B",  "score": 3.0, "findings_red": 0, "findings_orange": 1, "findings_yellow": 0, "findings_blue": 1 },
+    "staleness":     { "grade": "C",  "score": 2.0, "findings_red": 0, "findings_orange": 0, "findings_yellow": 3, "findings_blue": 2 }
+  },
+  "findings_total": { "red": 0, "orange": 2, "yellow": 9, "blue": 9, "gray": 0 },
+  "effort_hours_estimated": 6
+}
+```
+
+Grade-to-score mapping: A=4.0, A-=3.7, B+=3.3, B=3.0, B-=2.7, C+=2.3, C=2.0, C-=1.7, D+=1.3, D=1.0, F=0.0.
+
+5. **Mirror to `docs/plans/audits/latest/`** so tooling can always read the newest run:
+   ```bash
+   rm -rf docs/plans/audits/latest
+   cp -r docs/plans/audits/[run_id] docs/plans/audits/latest
+   ```
+
+6. **Append to `docs/plans/audits/history.md`** (create if missing). Compute Δ Overall vs. the previous row:
+
+```markdown
+# Audit History — [Project Name]
+
+| Run | Date | Overall | Sec | Cost | Perf | Qual | Infra | Arch | Stale | Δ Overall |
+|-----|------|---------|-----|------|------|------|-------|------|-------|-----------|
+| [#1](YYYY-MM-DD-HHMM/audit.md) | YYYY-MM-DD HH:MM | B+ | B | A- | B+ | B | A | B | C | baseline |
+```
+
+### Telling the user
+
+After the save, tell the user:
+```
+Audit report:      docs/plans/audits/[run_id]/audit.md
+Latest mirror:     docs/plans/audits/latest/
+History timeline:  docs/plans/audits/history.md
+```
+
+If two or more audit runs exist, suggest: "You can now compare runs — overall grade went from X → Y (Δ: +Z.Z) over [N] days."
+
+### Legacy handling
+
+If any old flat-file audits exist at `docs/plans/*-audit*.md`, leave them in place. They're historical context. Only new runs use the folder layout.
 
 ---
 
