@@ -13,7 +13,7 @@ This is a **scaffolding kit** — it ships templates and skills that get copied 
 | `templates/CLAUDE.md.template` | Workspace rules template |
 | `templates/arch.md.template` | Workspace architecture template |
 | `templates/settings.local.json.template` | Permissions template |
-| `skills/` | 8 workspace-level skills |
+| `skills/` | 9 workspace-level skills (incl. `humanize` for human-facing drafts) |
 | `docs/meta/` | Guides (cheat sheet, anti-patterns, memory, domain skills) |
 | `docs/plans/` | New project checklist |
 

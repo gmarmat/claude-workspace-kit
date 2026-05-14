@@ -47,7 +47,7 @@ This workspace kit works alongside [claude-project-kit](https://github.com/gmarm
 ```
 Workspace Kit (this repo)              Project Kit (companion)
 ├── Sets up ai-projects/ folder        ├── Bootstraps individual projects
-├── 7 workspace management skills      ├── 6 project development skills
+├── 8 workspace skills + humanize      ├── 6 project development skills
 ├── Cross-project context              ├── Single-project focus
 ├── /newproject clones project kit     ├── StartHere.md guided bootstrap
 └── Manages the forest                 └── Manages the trees
@@ -70,7 +70,7 @@ ai-projects/
 │   └── meta/                    ← Guides: cheat sheet, anti-patterns, etc.
 ├── .claude/
 │   ├── settings.local.json      ← Tool permissions
-│   └── skills/                  ← 7 workspace management skills
+│   └── skills/                  ← 8 workspace skills + humanize
 │       ├── startnow/            ← Load context at session start
 │       ├── updatenow/           ← Update docs after changes
 │       ├── advise/              ← Research + recommend
@@ -140,6 +140,7 @@ New to this? Follow [TUTORIAL.md](TUTORIAL.md) — a guided 30-minute walkthroug
 | `/audit [focus]` | Security, cost, performance, quality, staleness health check |
 | `/localcompact` | Keep arch.md under 300 lines |
 | `/newproject [name]` | Scaffold new project from idea or PRD |
+| `humanize` (auto-applies) | Make any human-facing draft sound like you, not a model. Outputs HTML with per-section copy buttons. |
 
 ---
 

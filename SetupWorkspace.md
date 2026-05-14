@@ -12,14 +12,15 @@ You are a workspace initialization agent. When a user points Claude Code at this
 
 ## Phase 1: Gather Info
 
-Ask the user:
+Ask the user (keep it punchy — single-line questions, accept defaults aggressively):
 
 1. **Where should the workspace live?** (default: `~/ai-projects/`)
-2. **Your name?** (used in CLAUDE.md personalization)
-3. **Do you want user subfolders?** (e.g., separate folders for different people sharing the machine — like `gaurav/`, `tara/`)
-4. **Any MCP servers to configure?** (Supabase, Railway, Vercel — can add later)
+2. **Your name?** (used in CLAUDE.md + humanize skill personalization)
+3. **Do you want user subfolders?** (e.g., `personal/`, `work/`, or per-person like `jared/`, `sara/`)
+4. **Email sign-off?** (default: `Thanks, {{name}}` — used by the humanize skill for drafting messages)
+5. **Any MCP servers to configure?** (Supabase, Railway, Vercel — can add later)
 
-Don't over-ask. If the user says "just set it up" — use defaults and let them customize later.
+Don't over-ask. If the user says "just set it up" — use defaults and let them customize later. Ask all five at once, accept defaults for any they skip.
 
 ---
 
@@ -44,8 +45,11 @@ Using the templates in this repo, create:
 │       ├── l3/SKILL.md                 ← From skills/l3/SKILL.md
 │       ├── audit/SKILL.md              ← From skills/audit/SKILL.md
 │       ├── localcompact/SKILL.md       ← From skills/localcompact/SKILL.md
-│       └── newproject/SKILL.md         ← From skills/newproject/SKILL.md
-└── [user-subfolders]/                  ← If requested (e.g., gaurav/, tara/)
+│       ├── newproject/SKILL.md         ← From skills/newproject/SKILL.md
+│       └── humanize/                   ← From skills/humanize/ (SKILL.md + references/)
+│           ├── SKILL.md                ←   Templated with {{USER_NAME}} + {{SIGN_OFF}}
+│           └── references/             ←   voices.md + ai-patterns-dictionary.md
+└── [user-subfolders]/                  ← If requested (e.g., personal/, work/)
 ```
 
 ### Customization During Copy
@@ -57,6 +61,7 @@ When copying templates, replace these placeholders:
 | `{{WORKSPACE_NAME}}` | User's chosen workspace name (default: "AI Projects Workspace") |
 | `{{WORKSPACE_PATH}}` | Absolute path to workspace (default: `~/ai-projects/`) |
 | `{{USER_NAME}}` | User's name |
+| `{{SIGN_OFF}}` | Email sign-off line (default: `Thanks, {{USER_NAME}}`) — used only in `skills/humanize/SKILL.md` |
 | `{{DATE}}` | Today's date (YYYY-MM-DD) |
 | `{{KIT_REPO_URL}}` | `https://github.com/gmarmat/claude-project-kit` |
 
@@ -83,6 +88,8 @@ When copying templates, replace these placeholders:
    /audit         — Project health check
    /localcompact  — Keep arch.md under 300 lines
    /newproject    — Scaffold a new project (uses claude-project-kit)
+   humanize       — Auto-applies whenever you draft a message for another human
+                    (emails, texts, contractor notes). Outputs HTML with copy buttons.
    ```
 3. Tell the user:
    ```
