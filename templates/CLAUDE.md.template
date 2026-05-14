@@ -43,20 +43,29 @@ All projects use a standard skill/command pattern:
 
 | Format | Use When | Example |
 |--------|----------|---------|
-| **Skill** (`skills/name/SKILL.md`) | Core workflow skills needing `allowed-tools` control | startnow, updatenow, advise, l3, audit, localcompact |
+| **Skill** (`skills/name/SKILL.md`) | Core workflow skills needing `allowed-tools` control | startnow, updatenow, advise, l3, audit, localcompact, ingest, humanize |
 | **Command** (`commands/name.md`) | Project-specific domain commands | build-api, gen-tests, review |
 
 **Core skills** (always skill format with YAML frontmatter):
 
-| Skill | Purpose |
-|-------|---------|
-| `/startnow` | Load project/workspace context at session start |
-| `/updatenow` | Update docs after changes |
-| `/advise` | Research + recommend (customized per project domain) |
-| `/l3` | Debug/investigate issues |
-| `/audit` | Project health check (security, cost, performance, quality) |
-| `/localcompact` | Compact arch.md back under 300 lines |
-| `/newproject` | Scaffold a new project folder with all standard files and skills |
+| Skill | When to use |
+|-------|-------------|
+| `/startnow` | Start of every session — loads workspace/project context |
+| `/updatenow` | After every completed feature or significant change — keeps docs current |
+| `/advise [topic]` | Before any non-trivial architecture or stack decision — researches options, costs, trade-offs, saves cited plan to `docs/plans/` |
+| `/ingest [source]` | When given an article, PDF, or research doc to absorb — converts to structured notes under `docs/plans/` with cross-references |
+| `/l3 [error]` | When debugging a tricky issue across the codebase — systematic investigation |
+| `/audit [focus]` | Periodic project health check — security, cost, performance, quality, staleness |
+| `/localcompact` | When `docs/arch.md` grows past ~300 lines — compacts back to LLM-friendly size |
+| `/newproject [name]` | To scaffold a brand new project folder (clones from `claude-project-kit`) |
+| `humanize` (auto-applies) | Whenever Claude drafts an email, text, or message for another person — strips AI tells, writes HTML with copy buttons. No need to invoke manually. |
+
+**Claude's responsibility:** proactively recommend these skills when the user's request matches a use case. Examples:
+- User says "let me decide between X and Y" → suggest `/advise X vs Y`
+- User shares an article link → suggest `/ingest`
+- User asks to draft a message → `humanize` auto-applies (no prompt needed)
+- User finishes a feature → suggest `/updatenow`
+- Session start → suggest `/startnow` if context is missing
 
 **Scaffolding new projects:** See `docs/plans/new-project-checklist.md`
 

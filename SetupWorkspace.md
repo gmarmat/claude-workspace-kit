@@ -88,6 +88,8 @@ When copying templates, replace these placeholders:
    /audit         — Project health check
    /localcompact  — Keep arch.md under 300 lines
    /newproject    — Scaffold a new project (uses claude-project-kit)
+   /ingest        — Process articles, PDFs, or research docs into structured notes
+                    under docs/plans/ (with cross-references to existing knowledge)
    humanize       — Auto-applies whenever you draft a message for another human
                     (emails, texts, contractor notes). Outputs HTML with copy buttons.
    ```

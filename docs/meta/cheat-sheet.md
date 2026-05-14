@@ -24,6 +24,8 @@ commit              → After each sub-task (in the project's git repo)
 | `/audit [area]` | Periodically | Health check across all projects |
 | `/localcompact` | Docs too long | Trim arch.md back under 300 lines |
 | `/newproject [name]` | New project | Scaffold from claude-project-kit templates |
+| `/ingest [source]` | Article/PDF intake | Convert to structured notes in `docs/plans/` with cross-refs |
+| `humanize` (auto-applies) | Drafting any human-facing message | Strips AI tells, outputs HTML with copy buttons — no need to invoke manually |
 
 ## Document Hierarchy (Two Layers)
 
