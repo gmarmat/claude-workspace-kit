@@ -57,10 +57,10 @@ Present a concise summary with TWO parts:
 **Part 1 — Tree view** showing the workspace layout at a glance. Include all project folders, key subfolders (content staging, skills, docs), and 1-line descriptions. Example:
 
 ```
-personal/
+ai-projects/
 ├── CLAUDE.md                    ← Workspace rules + project index
-├── gmarmat/                     ← GitHub profile README
-├── backyard/                    ← Spa build docs
+├── profile/                     ← GitHub profile README
+├── home-renovation/             ← Planning docs (non-code project)
 ├── project-a/                   ← Example web app (Next.js + Supabase)
 │   ├── docs/                    ←   Architecture + feature docs
 │   └── .claude/skills/          ←   Project-specific skills

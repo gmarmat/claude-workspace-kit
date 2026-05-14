@@ -81,7 +81,7 @@ Produce a connections table:
 | Existing Doc | Relationship | Action Needed |
 |-------------|-------------|---------------|
 | docs/plans/2026-03-30-pricing-strategy.md | Confirms finding #2 | None — already aligned |
-| tara1/dharmalink/docs/arch.md | Finding #4 suggests alternative | Flag for next /advise session |
+| project-a/docs/arch.md | Finding #4 suggests alternative | Flag for next /advise session |
 | memory: project_workspace_kit.md | Finding #1 outdates stored decision | Update memory |
 ```
 

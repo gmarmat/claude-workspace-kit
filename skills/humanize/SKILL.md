@@ -107,7 +107,7 @@ Scan for and break these patterns. They are stronger AI tells than vocabulary.
 - Mix sentence lengths. Some short, some medium, occasional longer. Do not
   write three same-length sentences in a row.
 - Specific over generic: "the 4/12 site walk" not "our recent visit",
-  "$11,600 contract" not "the project budget".
+  "the $8K contract" not "the project budget".
 - Show position: "Yes, please proceed" beats "We are inclined to proceed
   pending certain considerations".
 - Light hedging only when honest: "likely", "looks like" are fine. Avoid
