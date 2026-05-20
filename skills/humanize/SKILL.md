@@ -4,9 +4,10 @@ description: >
   [Workspace] Use whenever {{USER_NAME}} asks you to draft, write, edit, or
   help with anything another person will read: emails, texts, contractor
   messages, agent replies, HOA letters, family notes, job application material,
-  vendor follow-ups, doctor / school messages, etc. Also use when text needs
-  to sound less like AI, more punchy, or more like {{USER_NAME}}'s actual voice.
-  Adapted from lguz/humanize-writing-skill (MIT).
+  vendor follow-ups, doctor / school messages, GitHub issue / PR bodies for
+  open-source contributions, etc. Also use when text needs to sound less like
+  AI, more punchy, or more like {{USER_NAME}}'s actual voice. Adapted from
+  lguz/humanize-writing-skill (MIT).
 disable-model-invocation: false
 allowed-tools: Read, Write, Edit, Bash
 ---
@@ -28,6 +29,9 @@ Auto-apply (no permission needed) whenever {{USER_NAME}} asks you to:
 - Write a contractor / vendor / agent reply for any project in the workspace
 - Write a note for family, a doctor, a school, an HOA, a city office
 - Write a cover letter, application response, or recruiter reply
+- Draft a GitHub issue body, PR description, or PR review comment for any
+  open-source project {{USER_NAME}} is contributing to — see "OSS
+  contributions" section below
 
 Apply it before showing the draft.
 
@@ -37,7 +41,8 @@ Apply it before showing the draft.
   terse and technical, not humanized prose)
 - Code, configs, commit messages, PR titles
 - Structured data (CSV, JSON, YAML)
-- Ticket titles or contract clauses where exact wording matters
+- Ticket titles or contract clauses where exact wording matters (issue / PR
+  **bodies** are still in scope — humanize those)
 - When {{USER_NAME}} explicitly says "raw" or "verbatim" or "don't reword"
 
 ## Default voice
@@ -184,6 +189,7 @@ follow-up text, etc.). Keep section labels short and descriptive.
   section.block .content p:last-child { margin-bottom: 0; }
   section.block .content ul, section.block .content ol { margin: 0 0 10px; padding-left: 22px; }
   section.block .content li { margin: 0 0 4px; }
+  section.block .content pre { font: inherit; white-space: pre-wrap; margin: 0; }
 </style>
 </head>
 <body>
@@ -270,6 +276,51 @@ output the sentinel. Don't fake it.
 Offer once, briefly, to shorten / sharpen / change voice if {{USER_NAME}}
 wants a different cut. No need to explain the changes you made unless they
 ask.
+
+## OSS contributions (GitHub issues / PRs)
+
+Maintainers of popular repos spot LLM-generated content fast and close those
+issues / PRs without engaging. The 3-pass cleanup catches most of it. These
+are the OSS-specific tells to also strip:
+
+| LLM tell | What humans actually write |
+|---|---|
+| "Thank you for this **amazing / incredible / fantastic** project" opener | No opener. Open with the issue. |
+| "I hope this helps!" / "Let me know if you need any more info!" closer | Just stop. Or one short offer: "Happy to test on more setups." |
+| Religiously filling every issue-template section even when N/A | Skip non-applicable sections, or write `N/A` once. Don't pad. |
+| "Steps to reproduce: 1. Open app 2. Click button 3. Observe…" when it isn't actually a repro issue | Prose. Reserve numbered repros for actual bugs. |
+| Over-disclosure of system info no one asked for | One line: model / OS / app version. Only what's relevant. |
+| Apologetic hedging ("I'm not sure if this is the right place but…") | State the thing. Maintainer will redirect if wrong place. |
+| Numbered "Summary / Context / Expected / Actual" headers on a 3-line issue | Just write the 3 lines. Use headers only when the issue actually needs structure. |
+| "I'd be happy to contribute a PR for this if the maintainers think it's a good idea!" | Either open the PR or don't. Don't ask for permission to ask. |
+| Excessive markdown: code blocks for single words, bold every other phrase, bullets for two-item lists | Use markdown where it earns its place. Plain prose is fine. |
+
+### Format for OSS drafts
+
+GitHub renders markdown in issue / PR bodies, but the HTML draft template
+strips paragraph tags on copy. To make markdown survive the copy-paste,
+wrap the body section content in `<pre>` so newlines and ``` fences are
+preserved exactly:
+
+```html
+<section class="block">
+  <header><h3>Issue body (markdown)</h3><button class="copy">Copy</button></header>
+  <div class="content"><pre>{{markdown source goes here, preserving newlines}}</pre></div>
+</section>
+```
+
+The `<pre>` styling rule is already in the template `<style>` block.
+
+Sections to produce for an OSS draft:
+- **Title** (one section, exact text to paste into the issue / PR title field — not humanized prose, just the title string)
+- **Body (markdown)** (one section, the rendered issue / PR body)
+- **Labels / area** (optional — suggested labels to apply if the repo uses them)
+
+### What to protect for OSS specifically
+
+- Exact code blocks, error messages, stack traces, version strings — never reword
+- Reproducer commands — paste verbatim
+- VCP / DDC codes, register values, technical identifiers — never paraphrase
 
 ## What to protect
 
