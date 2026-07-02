@@ -123,6 +123,8 @@ Scan for and break these patterns. They are stronger AI tells than vocabulary.
 ## Quality checklist (run before returning the draft)
 
 - [ ] Zero em-dashes
+- [ ] ASCII-only: `grep -nP "[^\x00-\x7F]" <file>` returns nothing (no curly quotes / smart apostrophes / ellipsis char / dashes)
+- [ ] HTML file has full skeleton + `<meta charset="utf-8">` (not a fragment)
 - [ ] Zero Tier 1 banned words
 - [ ] Tier 2 words : max 1 each
 - [ ] Tier 3 transitions : max 2 in the whole piece
@@ -234,6 +236,23 @@ follow-up text, etc.). Keep section labels short and descriptive.
 </body>
 </html>
 ```
+
+### Encoding (hard rule : prevents mojibake like `Â€"`)
+
+Two rules, both required. When either is missed, curly quotes / apostrophes /
+dashes render as garbage (`â€"`, `Â€"`, `â€™`) because the browser falls back to
+Windows-1252 on a file with no charset.
+
+1. **Always write the full document skeleton**, never a fragment. The file must
+   start with `<!doctype html><html lang="en"><head><meta charset="utf-8">` and
+   close with `</body></html>`. Do not write a bare `<style>...<section>` fragment.
+2. **ASCII-only punctuation in the entire file** (title, headers, notes, body).
+   No em/en dashes, no curly quotes, no smart apostrophes, no ellipsis char. Use
+   `-` or `:` for dashes, straight `"` and `'`, and `...`. This is encoding-proof
+   even if the charset line is ever dropped, and it doubles as the no-em-dash
+   AI-flag check.
+
+After writing, verify: `grep -nP "[^\x00-\x7F]" <file>` should return nothing.
 
 ### Section guidance
 
