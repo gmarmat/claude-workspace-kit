@@ -139,6 +139,11 @@ Scan for and break these patterns. They are stronger AI tells than vocabulary.
 - [ ] No "Hope you're doing well" type throat-clearing
 - [ ] Sign-off matches the relationship (formal vs casual)
 - [ ] Reads like a real person wrote it in 4 minutes between meetings
+- [ ] **No sentence discloses one of {{USER_NAME}}'s own constraints** (time off, prep time, calendar pressure, their current job) unless they explicitly asked to say it
+- [ ] **No sentence restates what the structure already conveys** (offering options implies flexibility; a list implies "pick one")
+- [ ] **Zero strategy or reasoning inside the sendable block** (that lives in the notes sections)
+- [ ] Deleted the longest sentence as a test: if nothing was lost, leave it deleted
+- [ ] Read the sendable block back out of the WRITTEN FILE, not the draft in your head
 
 ## Output protocol
 
@@ -253,6 +258,10 @@ Windows-1252 on a file with no charset.
    AI-flag check.
 
 After writing, verify: `grep -nP "[^\x00-\x7F]" <file>` should return nothing.
+3. **No HTML dash entities either.** `&ndash;` and `&mdash;` pass the non-ASCII
+   grep because the source is ASCII, but they render as real dashes and land in
+   whatever the copy button puts on the clipboard. In a sendable body use a plain
+   `-`. Check: `grep -c '&[nm]dash;' <file>` inside any sendable block.
 
 ### Section guidance
 
@@ -295,6 +304,104 @@ output the sentinel. Don't fake it.
 Offer once, briefly, to shorten / sharpen / change voice if {{USER_NAME}}
 wants a different cut. No need to explain the changes you made unless they
 ask.
+
+## MANDATORY: load this file before drafting
+
+**Working from memory of these conventions is not running the skill.** Read SKILL.md
+at the start of every humanize job. Recalled convention drifts: the output ends up
+with the right file shape and the right sentinel line while quietly not following
+the rules, and {{USER_NAME}} notices before you do.
+
+## The message body carries only what the recipient needs to act
+
+Strategy, reasoning, caveats, and internal context belong in the notes sections below
+the message, where {{USER_NAME}} reads them. **They must never leak into the sendable
+block.** Two specific rules:
+
+1. **Never volunteer {{USER_NAME}}'s own constraints to the other side.** Time off,
+   prep time, calendar pressure, competing commitments: none of it. If they are
+   offering options, the options already encode every constraint. Telling a recipient
+   "I am out from the 3rd, so earlier is better" hands over a personal schedule and
+   reads as pressure.
+2. **Cut sentences that restate what the structure already says.** "Pick whichever
+   suits you and I will make it work" adds nothing to a bulleted list of offered
+   options. Neither does "One thing worth flagging". Hedging preambles are the tell
+   that reasoning is bleeding into the message.
+
+**Shape for a scheduling reply** (a recipient asked for availability):
+
+```
+Hi {Name},
+
+Thanks for reaching out. {one clause agreeing to the format}
+
+Here are some of my available slots (in {Zone} Time) next week:
+
+* Mon Aug 31st: 2:30 pm - 3:30 pm
+* Tue Sep 1st: 2:30 pm - 3:30 pm
+* Wed Sept 2nd: 10 am - noon
+
+Looking forward to it.
+
+{Name}
+{phone}
+```
+
+Details that matter and are easy to get backwards:
+- **Zone appears ONCE, parenthetically in the lead-in line**, never repeated per bullet.
+- **Ordinal dates with abbreviated weekday:** `Mon Aug 31st`, `Wed Sept 2nd`.
+- **Lowercase spaced am/pm**, and `noon` rather than `12:00 PM`.
+- Nothing between the last option and the sign-off line.
+- Roughly two-thirds the length instinct says to write.
+
+## {{USER_NAME}}'S STATED VALUES ARE THE INSTRUCTION, NOT A PROPOSAL
+
+When {{USER_NAME}} names specific times, dates, prices, quantities, or scope,
+**write those exact values**. If something in their own records conflicts, **flag it
+to them in the notes section and still put their value in the message.** Substituting
+a different value because it looked cleaner is the error, even when the substitution
+is defensible.
+
+**Why:** they hold context you cannot see. A calendar shows a slot is occupied, never
+that it is immovable; only they know which of their own commitments are soft, which
+are placeholders, and which they already planned to drop. Your job is to surface the
+conflict. The decision is theirs.
+
+Applies to any draft carrying their commitments. **Surface the conflict, keep their
+number.** Once they have seen the flag and restated their choice, it is settled: do
+not raise it a third time.
+
+## MANDATORY: read the file back before showing it
+
+**Never announce a humanized draft without first reading the sendable text back out
+of the written file and checking it.** Not the plan, not the heredoc you were about to
+write, not the fixed-up version in your head: the bytes on disk.
+
+**Why:** this text goes to a real person under {{USER_NAME}}'s name. They are the last
+line of defense, and proofreading is the wrong job to hand them. **A correction issued
+in a later message does not undo having shown them a broken draft.**
+
+The gate, run every time, before the `Humanized - <path>` line:
+
+```bash
+sed -n '/class="msg"/,/<\/div>/p' <file>     # 1. read every sendable block, in full
+grep -nP "[^\x00-\x7F]" <file>              # 2. non-ASCII: expect nothing
+grep -n '&[nm]dash;' <file>                  # 3. dash entities in sendable text
+```
+
+Then read the block with your own eyes against these, and fix before replying:
+
+| Check | What kills it |
+|---|---|
+| Dates | Weekday must match the date. Verify with a real date command, never from memory. No parenthetical second date left over from a revision. |
+| Times | Every time carries a zone if the recipient asked for one. Start and end are in the right order. |
+| Names | Recipient name spelled as they signed it. {{USER_NAME}}'s name and contact details correct. |
+| Leftovers | Nothing from a prior draft survives: an old option, an old price, an old address, a placeholder. |
+| Numbers | Amounts, reference numbers, and counts match the source, not an approximation. |
+| Truncation | The block is complete: greeting through signature, nothing cut mid-sentence. |
+
+If a fix is needed, fix it and re-run the gate. The reply is only sent once the file
+itself is clean.
 
 ## OSS contributions (GitHub issues / PRs)
 
