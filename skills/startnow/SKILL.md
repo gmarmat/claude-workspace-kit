@@ -28,6 +28,10 @@ Read and internalize the workspace layout, project architectures, and rules so y
 2. Read `docs/arch.md` if it exists — workspace-level architecture overview
 3. Check for memory files in the auto-memory directory
 
+> **Two-step context (if a `.context-hygiene.json` exists):** read only the loaded tier (latest session block + one
+> prior, recent threads). When something is not there, search older material with `ctx.py find <terms>` and read only
+> the hit lines. Never load an archive whole.
+
 ### Step 3: Scan Project States
 
 For each project subfolder:

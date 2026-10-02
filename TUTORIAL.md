@@ -82,7 +82,7 @@ When done, your workspace looks like:
 ai-projects/
 ├── CLAUDE.md
 ├── docs/arch.md
-├── .claude/skills/          ← 9 workspace skills (incl. humanize)
+├── .claude/skills/          ← 10 workspace skills (incl. humanize)
 └── todo-app/                ← Your first project
     ├── CLAUDE.md            ← Project-specific rules
     ├── docs/arch.md         ← Project architecture

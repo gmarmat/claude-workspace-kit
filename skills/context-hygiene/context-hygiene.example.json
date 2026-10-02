@@ -1,0 +1,45 @@
+{
+  "_comment": "Copy to <managed folder>/.context-hygiene.json and edit. Paths are relative to that folder. Only 'tier1' is required; each other block turns a feature on.",
+
+  "timezone": "America/New_York",
+  "timezoneLabel": "ET",
+
+  "tier1": [
+    { "file": "CLAUDE.md", "maxLines": 200 },
+    { "file": "session-state.md", "maxLines": 150 },
+    { "file": "active-threads.md", "maxLines": 300 }
+  ],
+  "tokenBudget": 40000,
+
+  "state": {
+    "file": "session-state.md",
+    "archive": "session-state-archive.md",
+    "blockPrefix": "## ",
+    "priorMarker": "PRIOR",
+    "keepPriors": 1,
+    "keepHeadings": ["Older blocks"]
+  },
+
+  "threads": {
+    "file": "active-threads.md",
+    "older": "active-threads-older.md",
+    "days": 14,
+    "neverMove": ["Standing", "Meetings"],
+    "sectionDate": "latest",
+    "futureDays": 60,
+    "rowDateSections": ["Awaiting", "Recently Closed"],
+    "closedSections": ["Recently Closed"],
+    "closedArchive": "active-threads-archive.md"
+  },
+
+  "tier2": [
+    "active-threads-older.md",
+    "session-state-archive.md",
+    "active-threads-archive.md",
+    "docs/**/*.md",
+    "~/.claude/projects/<project-key>/memory/*.md"
+  ],
+
+  "journal": { "file": "journal.md", "since": "2026-01-01" },
+  "versionTable": { "file": "docs/arch.md", "max": 15 }
+}

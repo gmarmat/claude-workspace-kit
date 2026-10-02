@@ -55,3 +55,12 @@ This gives Claude full context in ~30 seconds instead of manually explaining eve
 - **Save from success too** — don't only save corrections; save confirmed good approaches
 - **Prune stale memories** — old project decisions may no longer apply
 - **Verify before acting** — a memory that names a file/function may be outdated; check the code first
+
+---
+
+## Large Projects: Load Little, Search on a Miss
+
+Memory files hold durable facts. Project state (session notes, open threads, logs) grows differently: most of it is
+only needed rarely. For long-running projects use `/context-hygiene`: keep the latest session block, one prior block
+and the last ~14 days of threads loaded; roll everything older into archives; search them with `ctx.py find <terms>`
+only when the loaded context has no answer. Never load an archive whole.

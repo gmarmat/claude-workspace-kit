@@ -79,6 +79,12 @@ After updating workspace docs, check if any **structural changes** were made tha
 2. Flag any structural changes (new skills, rule changes, template updates)
 3. Report drift findings
 
+### Step 4b: Context Hygiene (only if a `.context-hygiene.json` exists)
+
+If the project uses `/context-hygiene`, run its wrap checks from the managed folder before reporting:
+`python3 <skill folder>/ctx.py roll --apply`, `compact --apply`, then `check`. Fix every WARN; moves are verified lossless.
+Skip this step entirely when there is no config.
+
 ### Step 5: Report
 
 ```
